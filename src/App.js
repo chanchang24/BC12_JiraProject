@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';// cần import
+import Login from './containers/share/Auth/Login/Login';
+import PageNotFound from './containers/share/PageNotFound/PageNotFound';
+import ClientLayout from './layouts/ClientLayout';
+import { clientRoutes } from './routes';
+
 
 function App() {
+  const renderLayout = (routes, Layout) => {
+    return routes.map(route => {
+      const { path, component, exact, isPrivate } = route;
+      return (<Layout
+      path={path}
+        component={component}
+        exact={exact}
+        isPrivate={isPrivate}
+         />)
+    })
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Switch>
+          {renderLayout(clientRoutes, ClientLayout)}
+          <Route path="/login" component={Login} />
+          <Route path="*" component={PageNotFound} />
+        </Switch>
+      </Router>
     </div>
   );
 }

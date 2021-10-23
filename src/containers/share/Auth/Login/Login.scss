@@ -1,0 +1,35 @@
+.login-banner {
+    .wave {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: 100vh;
+        z-index: -1;
+    }
+    .MuiContainer-root {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 13rem;
+        padding: 0 2rem;
+        .img {
+            display: flex;
+            justify-content: flex-end;
+            width: 100vh;
+            align-items: center;
+            img{
+                width: inherit;
+            }
+        }
+        .login-box {
+            h2{
+                text-transform: uppercase;
+            }
+            color: #fff;
+            text-align: center;
+            background-color: #2ac58f;
+            padding: 140px 0;
+        }
+    }
+}
