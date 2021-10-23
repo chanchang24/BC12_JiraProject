@@ -1,88 +1,87 @@
-import React from "react";
-import { Form, Input, Button, Checkbox } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { actLogin } from "containers/share/Auth/module/action";
-import Loader from "components/Loader/Loader";
-import { useHistory,Redirect } from "react-router-dom";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Input from "@mui/material/Input";
+import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import LoginWelcome from "assets/images/imgWelcome.svg";
+import BgLogin from "assets/images/wave.png";
+import "../Login/Login.scss";
 
+export default function Login() {
+  const [values, setValues] = React.useState({
+    username: "",
+    password: "",
+    showPassword: false,
+  });
 
-// Khi đăng nhập rồi thì quay lại trang chuyển đến
-export default function Login(props) {
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const { loading, error, currentUser } = useSelector((state) => state.authReducer);
-
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-    dispatch(actLogin(values, history));
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
   };
-  if (loading) return <Loader />;
-  // nếu chưa đăng nhập
-  return ! currentUser ?(
-    <>
-      <h3>Login</h3>
-      {error && <div className="alert alert-danger">{error}</div>}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Form
-          name="normal_login"
-          className="login-form"
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-          style={{ width: "500px" }}
-          validateTrigger="onBlur"
-        >
-          <Form.Item
-            name="taiKhoan"
-            rules={[
-              {
-                required: true,
-                message: "Please input your Username!",
-              },
-            ]}
-          >
+
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  return (
+    <div className="login-banner">
+      <img className="wave" src={BgLogin} alt="login background" />
+      <Container>
+        <div className="img">
+          <img src={LoginWelcome} alt="images personal" />
+        </div>
+        
+        <Box className="login-box">
+          <h2>Login</h2>
+          <FormControl variant="standard" sx={{ m: 1, width: "25ch" }}>
+            <InputLabel htmlFor="standard-adornment-password">
+              Username
+            </InputLabel>
             <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Username"
+              id="standard-adornment-username"
+              value={values.username}
+              onChange={handleChange("username")}
+              aria-describedby="standard-username-helper-text"
+              inputProps={{
+                "aria-label": "username",
+              }}
             />
-          </Form.Item>
-          <Form.Item
-            name="matKhau"
-            rules={[
-              {
-                required: true,
-                message: "Please input your Password!",
-              },
-            ]}
-          >
+          </FormControl>
+          <FormControl sx={{ m: 1, width: "25ch" }} variant="standard">
+            <InputLabel htmlFor="standard-adornment-password">
+              Password
+            </InputLabel>
             <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="Password"
+              id="standard-adornment-password"
+              type={values.showPassword ? "text" : "password"}
+              value={values.password}
+              onChange={handleChange("password")}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
             />
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
-              Log in
-            </Button>
-            Or <a href="">register now!</a>
-          </Form.Item>
-        </Form>
-      </div>
-    </>
-  ):(
-    <Redirect to="/"/>
+          </FormControl>
+        </Box>
+      </Container>
+    </div>
   );
 }
