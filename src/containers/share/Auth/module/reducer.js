@@ -2,8 +2,11 @@ import { LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT } from "./type";
 
 const initialState = {
     currentUser: null,
+    userRegister: null,
+    isRegister: false,
+    isLogined: true,
+    error: "",
     loading: false,
-    error: null,
 }
 
 const authReducer = (state = initialState, { type, payload }) => {
@@ -11,11 +14,18 @@ const authReducer = (state = initialState, { type, payload }) => {
         case LOGIN_REQUEST:
             return { ...state, loading: true, error: null };
         case LOGIN_SUCCESS:
-            return { ...state, loading: false, currentUser: payload }
+            return {
+                ...state,
+                loadding: false,
+                userRegister: null,
+                isRegister: false,
+                currentUser: payload,
+                error: "",
+            };
         case LOGIN_FAIL:
             return { ...state, loading: false, error: payload }
         case LOGOUT:
-            return { ...state,currentUser: payload }
+            return { ...state, currentUser: payload }
         default:
             return state
     }

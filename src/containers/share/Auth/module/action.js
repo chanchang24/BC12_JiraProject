@@ -14,15 +14,15 @@ const actLoginFail = error => ({
     payload: error,
 })
 
-export const actLogin = (user,history) => {
+export const actLogin = (user,history,token) => {
     return dispatch => {
         dispatch(actLoginRequest());
-        userApi.loginApi(user)
+        userApi.loginApi(user,token)
         .then(res => {
             dispatch(actLoginSuccess(res.data.content));
             history.push('/');
         })
-        .catch(error => {
+        .catch(()=> {
             dispatch(actLoginFail('Unable to login'));
         })
     }
