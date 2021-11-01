@@ -1,3 +1,4 @@
+import Register from 'containers/share/Auth/Register/Register';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';// cần import
 import Login from './containers/share/Auth/Login/Login';
 import PageNotFound from './containers/share/PageNotFound/PageNotFound';
@@ -23,6 +24,7 @@ function App() {
         <Switch>
           {renderLayout(clientRoutes, ClientLayout)}
           <Route path="/login" component={Login} />
+          <Route path='/register' component={Register}/>
           <Route path="*" component={PageNotFound} />
         </Switch>
       </Router>

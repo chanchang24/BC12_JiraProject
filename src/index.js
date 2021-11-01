@@ -5,6 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store/index';
+import 'jquery/dist/jquery.min.js';
+import 'popper.js/dist/umd/popper.min.js';
+import 'bootstrap/dist/js/bootstrap.min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { PersistGate } from 'redux-persist/integration/react'
 
 ReactDOM.render(

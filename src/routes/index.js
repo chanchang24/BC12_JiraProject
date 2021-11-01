@@ -8,14 +8,7 @@ export const clientRoutes =[
         exact: true,
         isPrivate: false,
     },
-    {
-        path: '/register',
-        component: Register,
-        exact: false,
-        isPrivate: false,
-    },
-
-   
+ 
 ]
 // export const adminRoutes =[
 //     {
