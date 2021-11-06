@@ -1,5 +1,4 @@
-import { React, usevalues } from "react";
-import Box from "@mui/material/Box";
+import { React, useValues,useState } from "react";
 import Input from "@mui/material/Input";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
@@ -19,15 +18,14 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "components/Loader/Loader";
 import { actLogin, actSaveUserCheck } from "../module/action";
 import { Link } from "react-router-dom";
-import { withFormik } from "formik";
+import {withFormik } from "formik";
 import * as Yup from "yup";
 import { CheckBoxOutlineBlank } from "@mui/icons-material";
-import { useState } from "react";
 import { FormHelperText } from "@mui/material";
-
+import {connect} from 'react-redux';
 function Login(props) {
-  const { values, touched, errors, handleChange, handleBlur, handleSubmit } =props;
-  console.log(errors.password);
+  const { values, touched, errors, handleChange, handleSubmit } =props;
+  
 
   const [state, setstate] = useState({
     showPassword: false,
@@ -36,59 +34,35 @@ function Login(props) {
   });
   const history = useHistory();
   const dispatch = useDispatch();
-  const login = (user, history, token) => {
-    dispatch(actLogin(user, history, token));
-  };
+  
+  const { accessToken, loading, error, currentUser, isLogined,isRegister } = useSelector(
+    (values) => values.authReducer
+  );
   const checked = (isChecked) => {
     dispatch(actSaveUserCheck(isChecked));
   };
-  const { accessToken, loading, error, currentUser, isLogined } = useSelector(
-    (values) => values.authReducer
-  );
-  // const handleChange = (e) => {
-  //   // e.preventDefault();
-  //   const {name,value} = e.target;
-  //   if (name === "email" && value !== "") {
-  //     setvalues({ isUser: true });
-  //   }
-  //   if (name === "password" && value !== "") {
-  //     setvalues({ isPass: true });
-  //   }
-  // };
   const saveLoginInfo = () => {
     const isChecked = !isLogined;
     checked(isChecked);
   };
+  
+  const actSignIn=(isLogined,isRegister,history)=>{
+    if (isLogined) {
+      localStorage.setItem("userLogin", JSON.stringify(currentUser));
+      localStorage.setItem("accessToken", accessToken);
 
-  const loginSubmit = (e) => {
-    // e.preventDefault();
-    let user = {};
-    let isUser = true;
-    let isPass = true;
-    for (let i = 0; i <= 1; i++) {
-      const name = e.target[i].name;
-      const value = e.target[i].value;
-      if (name === "taiKhoan" && value === "") {
-        isUser = false;
-      }
-      if (name === "matKhau" && value === "") {
-        isPass = false;
-      }
-      const userInfo = { ...user, [name]: value };
-      user = { ...userInfo };
     }
-    if (!isUser || !isPass) {
-      setstate((prevvalues) => ({
-        ...prevvalues,
-        isUser,
-        isPass,
-      }));
-      return;
+    if(isRegister){
+      history.push('/');
     }
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCAxMiIsIkhldEhhblN0cmluZyI6IjA4LzAzLzIwMjIiLCJIZXRIYW5UaW1lIjoiMTY0NjY5NzYwMDAwMCIsIm5iZiI6MTYxNzkwMTIwMCwiZXhwIjoxNjQ2ODQ1MjAwfQ.mPmSkXNXN1frPpzs9CbkOn1tlxu1XGzuT_3jPckLDnU";
-    login(user, history, token);
-  };
+    else{
+      history.goBack();
+    }
+  }
+  if(currentUser){
+    actSignIn(isLogined,isRegister,history);
+  }
+  
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
@@ -105,7 +79,7 @@ function Login(props) {
   };
 
   if (loading) return <Loader />;
-  return !currentUser ? (
+  return !currentUser? (
     <div className="login-banner">
       <img className="wave" src={BgLogin} alt="login background" />
       <Container>
@@ -125,7 +99,6 @@ function Login(props) {
           ></div>
           <FormControl
             variant="standard"
-            error={errors.email}
             sx={{ m: 1, width: "30ch" }}
           >
             <InputLabel sx={{ color: "#fff" }} htmlFor="email">
@@ -134,7 +107,7 @@ function Login(props) {
             <Input
               type="email"
               name="email"
-              className={errors.email && touched.email ? "input-error" : null}
+              className="input-form"
               id="email"
               value={values.email}
               onChange={handleChange}
@@ -143,13 +116,12 @@ function Login(props) {
                 "aria-label": "email",
               }}
             />
-            {errors.email ? (
+            {touched.email && errors.email ? (
               <FormHelperText>{errors.email}</FormHelperText>
             ):""}
           </FormControl>
           <FormControl
             sx={{ m: 1, width: "30ch" }}
-            error={errors.password}
             variant="standard"
           >
             <InputLabel sx={{ color: "#fff" }} htmlFor="password">
@@ -157,9 +129,7 @@ function Login(props) {
             </InputLabel>
             <Input
               name="password"
-              className={
-                errors.password && touched.password ? "input-error" : null
-              }
+              className="input-form"
               id="password"
               type={state.showPassword ? "text" : "password"}
               value={values.password}
@@ -176,7 +146,7 @@ function Login(props) {
                 </InputAdornment>
               }
             />
-            {errors.password ? 
+            {touched.password && errors.password ? 
               <FormHelperText className="text-danger">
                 {errors.password}
               </FormHelperText>
@@ -194,7 +164,7 @@ function Login(props) {
             <span>
               {" "}
               <CheckBoxOutlineBlank />
-              Lưu tài khoản
+              Save account
             </span>
           </div>
           <button htmlType="submit" className="btn-submit ">
@@ -224,6 +194,7 @@ function Login(props) {
         </form>
       </Container>
     </div>
+  
   ) : (
     <Redirect to="/" />
   );
@@ -236,15 +207,15 @@ const LoginWithFormik = withFormik({
   }),
   validationSchema: Yup.object().shape({
     email: Yup.string().required("Enter an email").email("Email is invalid!"),
-    password: Yup.string()
+     password: Yup.string()
       .required("Enter a password")
       .min(6, "Password is too short"),
   }),
   
-  handleSubmit: (values, { setSubmitting }) => {
-    console.log(values);
+  handleSubmit: (values, { props,setSubmitting }) => {
+    props.dispatch(actLogin(values))
   },
 
   displayName: "BasicForm",
 })(Login);
-export default LoginWithFormik;
+export default connect()( LoginWithFormik);
