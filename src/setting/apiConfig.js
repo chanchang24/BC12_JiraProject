@@ -1,2 +1,5 @@
-export const BASE_URL = 'http://movieapi.cyberlearn.vn/api';
-export const GROUP_ID = 'GP11';
+export const BASE_URL = 'http://jiranew.cybersoft.edu.vn/api';
+export const TOKEN_CYBERSOFT =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCAxMiIsIkhldEhhblN0cmluZyI6IjA4LzAzLzIwMjIiLCJIZXRIYW5UaW1lIjoiMTY0NjY5NzYwMDAwMCIsIm5iZiI6MTYxNzkwMTIwMCwiZXhwIjoxNjQ2ODQ1MjAwfQ.mPmSkXNXN1frPpzs9CbkOn1tlxu1XGzuT_3jPckLDnU';
+export const ACCESS_TOKEN =
+  'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ2dXRodWdpYW5nMjYxMEBnbWFpbC5jb20iLCJuYmYiOjE2MzQ1MjQyMDMsImV4cCI6MTYzNDUyNzgwM30.6pdHAG9vnUcwv7QAcEtE4v1xCaLiv-VAAjg9IAgZCfA';
