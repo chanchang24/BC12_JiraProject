@@ -3,3 +3,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const CHECK_USER_SAVE = 'CHECK_USER_SAVE';
 export const LOGOUT = 'LOGOUT';
+
+export const REGISTER_REQUEST = 'REGISTER_REQUEST';
+export const REGISTER_SUCESS = 'REGISTER_SUCESS';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
