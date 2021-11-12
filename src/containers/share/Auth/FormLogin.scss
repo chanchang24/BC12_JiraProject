@@ -1,0 +1,108 @@
+.login-banner {
+    .wave {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        height: 100vh;
+        z-index: -1;
+    }
+    .MuiContainer-root {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 13rem;
+        padding: 0 2rem;
+        .img {
+            display: flex;
+            justify-content: flex-end;
+            width: 100vh;
+            align-items: center;
+            img {
+                width: inherit;
+            }
+        }
+        .login-box {
+            h1 {
+                text-transform: uppercase;
+            }
+            color: #fff !important;
+            text-align: center;
+            background-color: #2ac58f;
+            padding: 45px 0;
+            .Mui-focused {
+                color: #fff;
+            }
+            .forgot__pass {
+                display: block-inline;
+                text-align: right;
+                a {
+                    text-decoration: none;
+                    color: #fff;
+                    font-size: 0.9rem;
+                    transition: 0.3s;
+                    padding: 3px;
+                }
+                a:hover {
+                    color: #000;
+                }
+            }
+
+            
+            .input-form {
+                color: #fff;
+            }
+            .input-form::before {
+                color: #fff;
+            }
+            .input-form::after {
+                border-bottom: 2px solid #fff;
+            }
+            .btn-submit {
+                margin-top: 10px;
+                display: block;
+                width: 100%;
+                height: 50px;
+                border-radius: 25px;
+                outline: none;
+                border: none;
+                background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+                background-size: 200%;
+                font-size: 1.1rem;
+                color: #fff;
+                font-family: "Poppins", sans-serif;
+                text-transform: uppercase;
+                margin: 2rem 0;
+                cursor: pointer;
+                transition: 0.5s;
+            }
+            .btn-submit:hover {
+                background-position: right;
+            }
+            #sign-up {
+                text-decoration: underline;
+                color: #fff;
+            }
+            .flex-c-m {
+                margin-top: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                a {
+                    margin: 7px;
+                    padding: 5px 5px 3px 5px;
+                    border-radius: 50%;
+                    background-color: white;
+                    svg {
+                        color: #2ac58f;
+                        font-size: 27px;
+                    }
+                }
+            }
+            .form-check{
+                text-align: left;
+                padding-left:35px;
+            }
+        }
+    }
+}
