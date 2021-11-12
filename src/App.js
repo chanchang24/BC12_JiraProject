@@ -1,5 +1,9 @@
+
+import AdminLayout from './layouts/AdminLayout';
+import { adminRoutes } from './routes';
+import history from './utils/history';    
 import Register from 'containers/share/Auth/Register/Register';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';// cần import
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './containers/share/Auth/Login/Login';
 import PageNotFound from './containers/share/PageNotFound/PageNotFound';
 import ClientLayout from './layouts/ClientLayout';
@@ -20,8 +24,9 @@ function App() {
   }
   return (
     <div className="App">
-      <Router>
+      <Router history={history}>
         <Switch>
+        {renderLayout(adminRoutes, AdminLayout)}
           {renderLayout(clientRoutes, ClientLayout)}
           <Route path="/login" component={Login} />
           <Route path='/register' component={Register}/>
